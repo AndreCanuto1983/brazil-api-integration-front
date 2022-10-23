@@ -8,18 +8,6 @@
 </template>
 
 <script>
-export default {
-  data: () => ({
-
-  }),
-  methods: {
-    // setTimeout() {
-    //   this.timeout = setTimeout(() => {
-    //     this.isLoading = false;
-    //   }, 700);
-    // },
-  },
-};
 </script>
 
 <style scoped>
