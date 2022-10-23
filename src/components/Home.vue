@@ -1,29 +1,17 @@
 <template>
   <b-container>
-    <b-row align-h="center">
-      <b-col lg="5" md="5">
-        <div class="card-title">          
-          <!-- <Contact></Contact> -->
-        </div>        
-      </b-col>
-      <b-col lg="7" md="7">
-        <CurriculoRight></CurriculoRight>
-      </b-col> </b-row
-    ><br />    
+    <b-row align-h="center">      
+    </b-row>
   </b-container>
 </template>
 
 <script>
-import CurriculoRight from "../components/CurriculoRight.vue";
-
 export default {
   components: {
-    CurriculoRight,
+
   },
   methods: {
-    subirRolagem() {
-      window.scrollTo(0, 0);
-    },
+    
   },
 };
 </script>

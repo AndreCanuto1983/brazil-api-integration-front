@@ -1,6 +1,6 @@
 <template>
-  <footer class="styleFooter" v-show="!isLoading">    
-    <p class="alinhaTexto corTexto">
+  <footer class="styleFooter">    
+    <p class="textColor">
       Desenvolvido por André Canuto
     </p>
     <br />
@@ -10,41 +10,31 @@
 <script>
 export default {
   data: () => ({
-    isLoading: false,
+
   }),
   methods: {
-    setTimeout() {
-      this.timeout = setTimeout(() => {
-        this.isLoading = false;
-      }, 700);
-    },
-  },
-  created() {
-    this.isLoading = true;
-  },
-  mounted() {
-    this.setTimeout();
+    // setTimeout() {
+    //   this.timeout = setTimeout(() => {
+    //     this.isLoading = false;
+    //   }, 700);
+    // },
   },
 };
 </script>
 
 <style scoped>
-.alinhaTexto {
-  padding-top: 10px;
+.textColor {
+  color: white;
+  font-size: smaller;
 }
-
-.corTexto {
-  color: white !important;
-}
-
-/* .corTexto:hover {
-  color: Highlight !important;
-} */
 
 .styleFooter {
-  background-color: #343a40 !important;
-  bottom: 0 !important;
-  width: 100% !important;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  background-color: #343a40;
+  width: 100%;
+  height: 18px;
   text-align: center;
 }
 </style>
