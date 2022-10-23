@@ -1,57 +1,75 @@
 <template>
   <b-container>
-    <b-row align-h="center">      
+    <b-row align-h="center">
+
+      <b-card no-body class="overflow-hidden shadow p-3 mb-5 bg-white rounded cardAdjust effectZoom" style="max-width: 350px">
+        <b-row no-gutters>
+          <b-col md="6">
+            <b-card-img
+              src="../static/img/SearchBooks.jpg"
+              alt="Books"
+              class="rounded-0"
+            ></b-card-img>
+          </b-col>
+          <b-col md="6">
+            <b-card-body title="Livros">
+              <b-card-text>
+                Buscar informações de livros através do ISBN.
+              </b-card-text>
+            </b-card-body>
+          </b-col>
+        </b-row>
+      </b-card>&emsp;
+
+      <b-card no-body class="overflow-hidden shadow p-3 mb-5 bg-white rounded cardAdjust effectZoom" style="max-width: 350px">
+        <b-row no-gutters>
+          <b-col md="6">
+            <b-card-img
+              src="../static/img/SearchCnpj.jpg"
+              alt="Company"
+              class="rounded-0"
+            ></b-card-img>
+          </b-col>
+          <b-col md="6">
+            <b-card-body title="Empresas">
+              <b-card-text>
+                Busca de informações de empresas através do cnpj.
+              </b-card-text>
+            </b-card-body>
+          </b-col>
+        </b-row>
+      </b-card>
+
     </b-row>
   </b-container>
 </template>
 
 <script>
 export default {
-  components: {
-
-  },
-  methods: {
-    
-  },
+  components: {},
+  methods: {},
 };
 </script>
 
 <style scoped>
-a {
-  color: black !important;
-}
-
-i {
-  color: gray !important;
-}
-
 .cardAdjust {
   border-radius: 8px;
-  margin-top: 10px;
+  margin-top: 5%;  
 }
 
-.sombra {
-  -webkit-box-shadow: 0px 0px 26px 1px rgba(117, 117, 117, 0.41);
-  -moz-box-shadow: 0px 0px 26px 1px rgba(117, 117, 117, 0.41);
-  box-shadow: 0px 0px 26px 1px rgba(117, 117, 117, 0.41);
+.cardAdjust:hover {
+  cursor: pointer;
 }
 
-.title {
-  text-align: center;
-  font-size: larger;
-  background-color: #343a40;
-  color: white;
-  padding: 3px;
-  border-radius: 3px;
-  margin-left: 3%;
-  max-width: 94%;
+.effectZoom{
+-moz-transition: all 0.3s;
+	-webkit-transition: all 0.3s;
+	transition: all 0.3s;
 }
 
-.card-title {
-  margin-top: 10px;
-}
-
-.btnTopo {
-  width: 50px;
+.effectZoom:hover{  
+  -moz-transform: scale(1.1);
+	-webkit-transform: scale(1.1);
+	transform: scale(1.1);
 }
 </style>
