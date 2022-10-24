@@ -86,8 +86,8 @@
               <span> {{ this.bookData.book.page_count }} </span>
             </div>
 
-            <div v-if="this.bookData.book.synopsis">
-              <strong>Synopsis: </strong>
+            <div v-if="this.bookData.book.synopsis" style="text-align: justify">
+              <strong>Sinopse: </strong>
               <span> {{ this.bookData.book.synopsis }} </span>
             </div>
 
