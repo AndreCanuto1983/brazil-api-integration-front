@@ -25,6 +25,10 @@
             <b-button size="sm" @click="getBook" variant="outline-secondary"
               ><i class="fas fa-search"></i
             ></b-button>
+
+            <b-button size="sm" @click="clear" variant="outline-secondary"
+              ><i class="fas fa-broom"></i
+            ></b-button>
           </b-input-group-append>
 
           <b-form-invalid-feedback id="input-live-feedback"
@@ -51,7 +55,7 @@
         <b-card
           :title="this.bookData.book.title"
           img-top
-          style="max-width: 60%; border:0;"          
+          class="cardPersonalized"         
         >
           <b-card-text>
             <div v-if="this.bookData.book.subTitle">
@@ -99,76 +103,6 @@
             </div>
           </b-card-text>
         </b-card>                
-        <!-- <b-card
-          no-body
-          class="overflow-hidden shadow p-3 mb-5 bg-white rounded"
-          style="max-width: 700px"
-        >
-          <b-row no-gutters>
-            <b-col>
-              <b-card-img
-                v-if="this.bookData.book.cover_url"
-                :src="this.bookData.book.cover_url"
-                class="rounded-0"
-              ></b-card-img>
-              <b-card-img
-                v-else
-                src="../static/img/semfoto.png"
-                class="rounded-0"
-              ></b-card-img>
-            </b-col>
-            <b-col>
-              <b-card-body :title="this.bookData.book.title">
-                <div v-if="this.bookData.book.subTitle">
-                  <strong>Subtítulo: </strong>
-                  <span>{{ this.bookData.book.subTitle }}</span>
-                </div>
-
-                <div v-if="this.bookData.book.authors[0]">
-                  <strong>Autor(es): </strong>
-                  <span
-                    v-for="author in this.bookData.book.authors"
-                    :key="author"
-                  >
-                    {{ author }}
-                  </span>
-                </div>
-
-                <div v-if="this.bookData.book.publisher">
-                  <strong>Publicação: </strong>
-                  <span> {{ this.bookData.book.publisher }} </span>
-                </div>
-
-                <div v-if="this.bookData.book.location">
-                  <strong>Localização: </strong>
-                  <span> {{ this.bookData.book.location }} </span>
-                </div>
-
-                <div v-if="this.bookData.book.year">
-                  <strong>Ano: </strong>
-                  <span> {{ this.bookData.book.year }} </span>
-                </div>
-
-                <div v-if="this.bookData.book.page_count">
-                  <strong>Páginas: </strong>
-                  <span> {{ this.bookData.book.page_count }} </span>
-                </div>
-
-                <div v-if="this.bookData.book.synopsis">
-                  <strong>Synopsis: </strong>
-                  <span> {{ this.bookData.book.synopsis }} </span>
-                </div>
-
-                <div v-if="this.bookData.book.subjects[0]">
-                  <strong>Palavras-chave: </strong>
-                  <span v-for="tag in this.bookData.book.subjects" :key="tag">{{
-                    tag
-                  }}</span>
-                </div>
-              </b-card-body>
-            </b-col>
-          </b-row>
-        </b-card> -->
       </b-row>
       <br/><br/>
     </b-container>
@@ -199,6 +133,10 @@ export default {
     },
   },
   methods: {
+    clear(){
+      this.isbn = "";
+      this.bookData = {};
+    },
     getBook() {
       if (this.isbn == "" || this.isbn.length < 10 || this.isbn.length > 13)
         return;
@@ -208,10 +146,8 @@ export default {
       http
         .get(`/api/v1/Books/${this.isbn}`)
         .then((response) => {
-          console.log("RESPONSE", response);
-
           if (response.status == 204)
-            this.$toast.info("Livro não encontrado :(");
+            this.$toast.info("Livro não encontrado!");
 
           this.bookData = response.data;
         })
@@ -248,12 +184,14 @@ strong {
   border-radius: 8px;
 }
 
-/* .personalized-container {
-  width: 90vw;
-  height: 90vh;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-} */
+.cardPersonalized{
+  max-width: 60%; 
+  border:0;
+}
+
+@media (max-width: 600px) {
+  .cardPersonalized{
+  max-width: 90%; 
+  }
+}
 </style>
