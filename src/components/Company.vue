@@ -43,7 +43,7 @@
         v-if="this.company != undefined"
       >
         <b-card
-          :title="this.company.nome_fantasia"
+          :title="this.company.razao_social"
           img-top
           class="cardPersonalized"
         >
@@ -53,9 +53,9 @@
               <span>{{ this.company.cnpj }}</span>
             </div>
 
-            <div v-if="this.company.razao_social">
-              <strong>Razão Social: </strong>
-              <span>{{ this.company.razao_social }}</span>
+            <div v-if="this.company.nome_fantasia">
+              <strong>Nome Fantasia: </strong>
+              <span>{{ this.company.nome_fantasia }}</span>
             </div>
 
             <div v-if="this.company.descricao_situacao_cadastral">

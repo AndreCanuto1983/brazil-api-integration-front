@@ -86,7 +86,7 @@
             </div>
 
             <div v-if="this.bookData.book.page_count">
-              <strong>Páginas: </strong>
+              <strong>Número de Páginas: </strong>
               <span> {{ this.bookData.book.page_count }} </span>
             </div>
 
