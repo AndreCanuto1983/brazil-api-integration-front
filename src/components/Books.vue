@@ -1,5 +1,5 @@
 <template>
-  <div class="personalized-container">
+  <div>
     <loading
       :active="isLoading"
       transition="fade"
@@ -9,20 +9,20 @@
     >
     </loading>
 
-    <b-container>
+    <b-container fluid="sm">
       <b-row align-h="center" style="margin-bottom: 10px">
-        <b-col lg="4" style="margin-top: 10px">
+        <b-col sm="4" style="margin-top: 10px">
           <b-input-group-append>
             <b-form-input
               type="number"
-              size="lg"
+              size="sm"
               v-model="isbn"
               :state="isbnState"
               placeholder="Informe o número ISBN"
               trim
             ></b-form-input>
 
-            <b-button @click="getBook" variant="outline-secondary"
+            <b-button size="sm" @click="getBook" variant="outline-secondary"
               ><i class="fas fa-search"></i
             ></b-button>
           </b-input-group-append>
@@ -33,29 +33,146 @@
         </b-col>
       </b-row>
 
-      <b-row align-h="center">
-        <b-card 
-          :img-src="this.bookData.book.cover_url"
-          v-if="this.bookData.book != undefined"         
-          img-left
-          class="shadow p-3 mb-5 bg-white rounded"
+      <b-row
+        align-h="center"
+        style="margin-top: 10px;"
+        v-if="this.bookData.book != undefined"        
+      >
+        <div>
+          <b-img  
+            center          
+            v-if="this.bookData.book.cover_url"
+            :src="this.bookData.book.cover_url"
+            style="max-width: 200px; margin-top: 10px;"
+            class="my-shadow"
+          >
+          </b-img>
+        </div>
+        <b-card
+          :title="this.bookData.book.title"
+          img-top
+          style="max-width: 60%; border:0;"          
         >
           <b-card-text>
-            Some quick example text to build on the card and make up the bulk of
-            the card's content.
-          </b-card-text>
-        </b-card>
+            <div v-if="this.bookData.book.subTitle">
+              <strong>Subtítulo: </strong>
+              <span>{{ this.bookData.book.subTitle }}</span>
+            </div>
 
-        <!-- <div class="imgFile">
-          <b-img
-            center
-            fluid
-            :src="this.bookData.book.cover_url"
-            v-if="this.bookData.book != undefined"
-          ></b-img>
-        </div> -->
+            <div v-if="this.bookData.book.authors[0]">
+              <strong>Autor(es): </strong>
+              <span v-for="author in this.bookData.book.authors" :key="author">
+                {{ author }}
+              </span>
+            </div>
+
+            <div v-if="this.bookData.book.publisher">
+              <strong>Publicação: </strong>
+              <span> {{ this.bookData.book.publisher }} </span>
+            </div>
+
+            <div v-if="this.bookData.book.location">
+              <strong>Localização: </strong>
+              <span> {{ this.bookData.book.location }} </span>
+            </div>
+
+            <div v-if="this.bookData.book.year">
+              <strong>Ano: </strong>
+              <span> {{ this.bookData.book.year }} </span>
+            </div>
+
+            <div v-if="this.bookData.book.page_count">
+              <strong>Páginas: </strong>
+              <span> {{ this.bookData.book.page_count }} </span>
+            </div>
+
+            <div v-if="this.bookData.book.synopsis">
+              <strong>Synopsis: </strong>
+              <span> {{ this.bookData.book.synopsis }} </span>
+            </div>
+
+            <div v-if="this.bookData.book.subjects[0]">
+              <strong>Palavras-chave: </strong>
+              <span v-for="tag in this.bookData.book.subjects" :key="tag">{{
+                tag
+              }}</span>
+            </div>
+          </b-card-text>
+        </b-card>                
+        <!-- <b-card
+          no-body
+          class="overflow-hidden shadow p-3 mb-5 bg-white rounded"
+          style="max-width: 700px"
+        >
+          <b-row no-gutters>
+            <b-col>
+              <b-card-img
+                v-if="this.bookData.book.cover_url"
+                :src="this.bookData.book.cover_url"
+                class="rounded-0"
+              ></b-card-img>
+              <b-card-img
+                v-else
+                src="../static/img/semfoto.png"
+                class="rounded-0"
+              ></b-card-img>
+            </b-col>
+            <b-col>
+              <b-card-body :title="this.bookData.book.title">
+                <div v-if="this.bookData.book.subTitle">
+                  <strong>Subtítulo: </strong>
+                  <span>{{ this.bookData.book.subTitle }}</span>
+                </div>
+
+                <div v-if="this.bookData.book.authors[0]">
+                  <strong>Autor(es): </strong>
+                  <span
+                    v-for="author in this.bookData.book.authors"
+                    :key="author"
+                  >
+                    {{ author }}
+                  </span>
+                </div>
+
+                <div v-if="this.bookData.book.publisher">
+                  <strong>Publicação: </strong>
+                  <span> {{ this.bookData.book.publisher }} </span>
+                </div>
+
+                <div v-if="this.bookData.book.location">
+                  <strong>Localização: </strong>
+                  <span> {{ this.bookData.book.location }} </span>
+                </div>
+
+                <div v-if="this.bookData.book.year">
+                  <strong>Ano: </strong>
+                  <span> {{ this.bookData.book.year }} </span>
+                </div>
+
+                <div v-if="this.bookData.book.page_count">
+                  <strong>Páginas: </strong>
+                  <span> {{ this.bookData.book.page_count }} </span>
+                </div>
+
+                <div v-if="this.bookData.book.synopsis">
+                  <strong>Synopsis: </strong>
+                  <span> {{ this.bookData.book.synopsis }} </span>
+                </div>
+
+                <div v-if="this.bookData.book.subjects[0]">
+                  <strong>Palavras-chave: </strong>
+                  <span v-for="tag in this.bookData.book.subjects" :key="tag">{{
+                    tag
+                  }}</span>
+                </div>
+              </b-card-body>
+            </b-col>
+          </b-row>
+        </b-card> -->
       </b-row>
+      <br/><br/>
     </b-container>
+    <br/><br/>
   </div>
 </template>
 
@@ -119,16 +236,24 @@ export default {
 </script>
 
 <style scoped>
-.imgFile {
-  max-width: 200px;
+span,
+strong {
+  font-size: small;
 }
 
-.personalized-container {
-  /* width: 90vw;
-  height: 90vh; */
-  /* display: flex;
+.my-shadow {
+  -webkit-box-shadow: 0px 0px 26px 1px rgba(117, 117, 117, 0.41);
+  -moz-box-shadow: 0px 0px 26px 1px rgba(117, 117, 117, 0.41);
+  box-shadow: 0px 0px 26px 1px rgba(117, 117, 117, 0.41);
+  border-radius: 8px;
+}
+
+/* .personalized-container {
+  width: 90vw;
+  height: 90vh;
+  display: flex;
   flex-direction: row;
   justify-content: center;
-  align-items: center; */
-}
+  align-items: center;
+} */
 </style>
