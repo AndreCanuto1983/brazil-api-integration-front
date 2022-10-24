@@ -28,13 +28,12 @@
 
     <!-- nav bar -->
     <b-navbar type="dark" variant="dark">
-      <b-navbar-brand>
+      <!-- <b-navbar-brand>
         <b-button size="sm" variant="outline-light" v-b-toggle.sidebar-variant>
           <i class="fas fa-bars"></i>
         </b-button>
-      </b-navbar-brand>
+      </b-navbar-brand> -->
 
-      <!-- nav bar menu-->
       <b-navbar-nav>
         <b-nav-item
           v-for="menu in menuList"

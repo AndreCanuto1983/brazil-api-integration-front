@@ -4,10 +4,10 @@ import axios from 'axios';
 //const authorization = new Authorization();
 
 const http = axios.create({
-  baseURL: window.location.host.includes('localhost') ? 'http://localhost:49168' : 'http://localhost:49167',
+  baseURL: 'http://localhost:49168', //window.location.host.includes('localhost') ? 'http://localhost:49168' : 'http://localhost:49167',
   headers: {
-    'Accept': '*/*', 
-    'Content-Type': 'application/json',
+    'Accept': '*/*',     
+    'Content-Type': 'application/json'
     //'Authorization': authorization.auth() !== null ? `Bearer ${authorization.auth()}` : ''
   }   
 });
