@@ -63,9 +63,6 @@ export default {
       this.menuList = await menu.getMenu();
       this.menuNav = await menu.getMenu();
     },
-    curriculoPdf() {
-      window.open("/static/pdf/CurriculoAndreCanuto.pdf", "_blank");
-    },
   },
   async beforeMount() {
     await this.mountMenu();
