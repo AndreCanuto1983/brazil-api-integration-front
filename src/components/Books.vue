@@ -9,6 +9,8 @@
     >
     </loading>
 
+    <h3 style="text-align: center; color: gray">Busca de Livros</h3>
+
     <b-container fluid="sm">
       <b-row align-h="center" style="margin-bottom: 10px">
         <b-col sm="4" style="margin-top: 10px">
@@ -42,10 +44,7 @@
         style="margin-top: 10px"
         v-if="this.bookData.book != undefined"
       >
-        <b-card
-          img-top
-          class="cardPersonalized"
-        >
+        <b-card img-top class="cardPersonalized">
           <div style="padding: 10px">
             <b-img
               center
@@ -67,7 +66,7 @@
           </div>
 
           <div>
-            <h1 style="text-align:center;">{{this.bookData.book.title}}</h1>
+            <h1 style="text-align: center">{{ this.bookData.book.title }}</h1>
           </div>
 
           <b-card-text>

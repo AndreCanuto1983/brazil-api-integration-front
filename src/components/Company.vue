@@ -9,6 +9,8 @@
     >
     </loading>
 
+    <h3 style="text-align: center; color: gray">Busca de Empresas</h3>
+
     <b-container fluid="sm">
       <b-row align-h="center" style="margin-bottom: 10px">
         <b-col sm="4" style="margin-top: 10px">
@@ -129,7 +131,10 @@
 
             <div v-if="this.company.logradouro">
               <strong>Logradouro: </strong>
-              <span>{{this.company.descricao_tipo_de_logradouro}} {{ this.company.logradouro }}</span>
+              <span
+                >{{ this.company.descricao_tipo_de_logradouro }}
+                {{ this.company.logradouro }}</span
+              >
             </div>
 
             <div v-if="this.company.numero">
@@ -166,43 +171,44 @@
           class="cardPersonalized shadow p-3 mb-5 bg-white rounded"
           v-if="this.company.qsa"
         >
-          <b-card-text 
-              v-for="socio in this.company.qsa"
-              :key="socio.cnpj_cpf_do_socio">
-              <div v-if="socio.cnpj_cpf_do_socio">
-                <strong>Cpf/Cnpj do Sócio: </strong>
-                <span>{{ socio.cnpj_cpf_do_socio }}</span>
-              </div>
+          <b-card-text
+            v-for="socio in this.company.qsa"
+            :key="socio.cnpj_cpf_do_socio"
+          >
+            <div v-if="socio.cnpj_cpf_do_socio">
+              <strong>Cpf/Cnpj do Sócio: </strong>
+              <span>{{ socio.cnpj_cpf_do_socio }}</span>
+            </div>
 
-              <div v-if="socio.nome_socio">
-                <strong>Nome do Sócio: </strong>
-                <span>{{ socio.nome_socio }}</span>
-              </div>
+            <div v-if="socio.nome_socio">
+              <strong>Nome do Sócio: </strong>
+              <span>{{ socio.nome_socio }}</span>
+            </div>
 
-              <div v-if="socio.qualificacao_socio">
-                <strong>Qualificação: </strong>
-                <span>{{ socio.qualificacao_socio }}</span>
-              </div>
+            <div v-if="socio.qualificacao_socio">
+              <strong>Qualificação: </strong>
+              <span>{{ socio.qualificacao_socio }}</span>
+            </div>
 
-              <div v-if="socio.faixa_etaria">
-                <strong>Faixa Etária: </strong>
-                <span>{{ socio.faixa_etaria }}</span>
-              </div>
+            <div v-if="socio.faixa_etaria">
+              <strong>Faixa Etária: </strong>
+              <span>{{ socio.faixa_etaria }}</span>
+            </div>
 
-              <div v-if="socio.data_entrada_sociedade">
-                <strong>Data entrada na sociedade: </strong>
-                <span>{{ socio.data_entrada_sociedade }}</span>
-              </div>
+            <div v-if="socio.data_entrada_sociedade">
+              <strong>Data entrada na sociedade: </strong>
+              <span>{{ socio.data_entrada_sociedade }}</span>
+            </div>
 
-              <div v-if="socio.cpf_representante_legal">
-                <strong>Cpf Representante Legal: </strong>
-                <span>{{ socio.cpf_representante_legal }}</span>
-              </div>
+            <div v-if="socio.cpf_representante_legal">
+              <strong>Cpf Representante Legal: </strong>
+              <span>{{ socio.cpf_representante_legal }}</span>
+            </div>
 
-              <div v-if="socio.nome_representante_legal">
-                <strong>Nome Representante: </strong>
-                <span>{{ socio.nome_representante_legal }}</span>
-              </div>
+            <div v-if="socio.nome_representante_legal">
+              <strong>Nome Representante: </strong>
+              <span>{{ socio.nome_representante_legal }}</span>
+            </div>
           </b-card-text>
         </b-card>
 
@@ -213,17 +219,19 @@
           class="cardPersonalized shadow p-3 mb-5 bg-white rounded"
           v-if="this.company.cnaes_secundarios"
         >
-          <b-card-text v-for="cnae in this.company.cnaes_secundarios"
-              :key="cnae.codigo">
-              <div>
-                <strong>Código: </strong>
-                <span>{{ cnae.codigo }}</span>
-              </div>
+          <b-card-text
+            v-for="cnae in this.company.cnaes_secundarios"
+            :key="cnae.codigo"
+          >
+            <div>
+              <strong>Código: </strong>
+              <span>{{ cnae.codigo }}</span>
+            </div>
 
-              <div>
-                <strong>Descrição: </strong>
-                <span>{{ cnae.descricao }}</span>
-              </div>
+            <div>
+              <strong>Descrição: </strong>
+              <span>{{ cnae.descricao }}</span>
+            </div>
           </b-card-text>
         </b-card>
       </b-row>
@@ -271,7 +279,7 @@ export default {
         .then((response) => {
           if (response.status == 204) this.$toast.info("Cnpj não encontrado!");
 
-          this.company = response.data.Empresa;          
+          this.company = response.data.Empresa;
         })
         .catch((error) => {
           if (error.response === undefined) {
