@@ -39,24 +39,37 @@
 
       <b-row
         align-h="center"
-        style="margin-top: 10px;"
-        v-if="this.bookData.book != undefined"        
+        style="margin-top: 10px"
+        v-if="this.bookData.book != undefined"
       >
-        <div>
-          <b-img  
-            center          
-            v-if="this.bookData.book.cover_url"
-            :src="this.bookData.book.cover_url"
-            style="max-width: 200px; margin-top: 10px;"
-            class="my-shadow"
-          >
-          </b-img>
-        </div>
         <b-card
-          :title="this.bookData.book.title"
           img-top
-          class="cardPersonalized"         
+          class="cardPersonalized"
         >
+          <div style="padding: 10px">
+            <b-img
+              center
+              v-if="this.bookData.book.cover_url"
+              :src="this.bookData.book.cover_url"
+              style="max-width: 200px; margin-top: 10px"
+              class="my-shadow"
+            >
+            </b-img>
+
+            <b-img
+              center
+              v-else
+              src="../static/img/semfoto.png"
+              style="max-width: 200px; margin-top: 10px"
+              class="my-shadow"
+            >
+            </b-img>
+          </div>
+
+          <div>
+            <h1 style="text-align:center;">{{this.bookData.book.title}}</h1>
+          </div>
+
           <b-card-text>
             <div v-if="this.bookData.book.subTitle">
               <strong>Subtítulo: </strong>
@@ -102,11 +115,11 @@
               }}</span>
             </div>
           </b-card-text>
-        </b-card>                
+        </b-card>
       </b-row>
-      <br/><br/>
+      <br /><br />
     </b-container>
-    <br/><br/>
+    <br /><br />
   </div>
 </template>
 
@@ -133,7 +146,7 @@ export default {
     },
   },
   methods: {
-    clear(){
+    clear() {
       this.isbn = "";
       this.bookData = {};
     },
@@ -146,8 +159,7 @@ export default {
       http
         .get(`/api/v1/Books/${this.isbn}`)
         .then((response) => {
-          if (response.status == 204)
-            this.$toast.info("Livro não encontrado!");
+          if (response.status == 204) this.$toast.info("Livro não encontrado!");
 
           this.bookData = response.data;
         })
@@ -184,14 +196,14 @@ strong {
   border-radius: 8px;
 }
 
-.cardPersonalized{
-  max-width: 60%; 
-  border:0;
+.cardPersonalized {
+  max-width: 60%;
+  border: 0;
 }
 
 @media (max-width: 600px) {
-  .cardPersonalized{
-  max-width: 90%; 
+  .cardPersonalized {
+    max-width: 90%;
   }
 }
 </style>
