@@ -43,14 +43,21 @@
         v-if="this.company != undefined"
       >
         <b-card
-          :title="this.company.razao_social"
+          title="Empresa"
           img-top
-          class="cardPersonalized"
+          class="cardPersonalized shadow p-3 mb-5 bg-white rounded"
+          v-if="this.company.cnpj"
         >
           <b-card-text>
+            <!-- Dados Empresa -->
             <div v-if="this.company.cnpj">
               <strong>Cnpj: </strong>
               <span>{{ this.company.cnpj }}</span>
+            </div>
+
+            <div v-if="this.company.razao_social">
+              <strong>Razão Social: </strong>
+              <span>{{ this.company.razao_social }}</span>
             </div>
 
             <div v-if="this.company.nome_fantasia">
@@ -75,7 +82,14 @@
 
             <div v-if="this.company.descricao_identificador_matriz_filial">
               <strong>Identificador: </strong>
-              <span>{{ this.company.descricao_identificador_matriz_filial }}</span>
+              <span>{{
+                this.company.descricao_identificador_matriz_filial
+              }}</span>
+            </div>
+
+            <div v-if="this.company.codigo_natureza_juridica">
+              <strong>Código Natureza jurídica: </strong>
+              <span>{{ this.company.codigo_natureza_juridica }}</span>
             </div>
 
             <div v-if="this.company.natureza_juridica">
@@ -87,6 +101,129 @@
               <strong>Cnae: </strong>
               <span>{{ this.company.cnae_fiscal }}</span>
             </div>
+
+            <div v-if="this.company.cnae_fiscal_descricao">
+              <strong>Descrição Cnae: </strong>
+              <span>{{ this.company.cnae_fiscal_descricao }}</span>
+            </div>
+
+            <div v-if="this.company.data_inicio_atividade">
+              <strong>Início das Atividades: </strong>
+              <span>{{ this.company.data_inicio_atividade }}</span>
+            </div>
+          </b-card-text>
+        </b-card>
+
+        <!-- Endereço -->
+        <b-card
+          title="Endereço"
+          img-top
+          class="cardPersonalized shadow p-3 mb-5 bg-white rounded"
+          v-if="this.company.cnpj"
+        >
+          <b-card-text>
+            <div v-if="this.company.cep">
+              <strong>Cep: </strong>
+              <span>{{ this.company.cep }}</span>
+            </div>
+
+            <div v-if="this.company.logradouro">
+              <strong>Logradouro: </strong>
+              <span>{{this.company.descricao_tipo_de_logradouro}} {{ this.company.logradouro }}</span>
+            </div>
+
+            <div v-if="this.company.numero">
+              <strong>Número: </strong>
+              <span>{{ this.company.numero }}</span>
+            </div>
+
+            <div v-if="this.company.complemento">
+              <strong>Complemento: </strong>
+              <span>{{ this.company.complemento }}</span>
+            </div>
+
+            <div v-if="this.company.bairro">
+              <strong>Bairro: </strong>
+              <span>{{ this.company.bairro }}</span>
+            </div>
+
+            <div v-if="this.company.municipio">
+              <strong>Município: </strong>
+              <span>{{ this.company.municipio }}</span>
+            </div>
+
+            <div v-if="this.company.uf">
+              <strong>UF: </strong>
+              <span>{{ this.company.uf }}</span>
+            </div>
+          </b-card-text>
+        </b-card>
+
+        <!-- Sociedade -->
+        <b-card
+          title="Quadro de Sócios"
+          img-top
+          class="cardPersonalized shadow p-3 mb-5 bg-white rounded"
+          v-if="this.company.qsa"
+        >
+          <b-card-text 
+              v-for="socio in this.company.qsa"
+              :key="socio.cnpj_cpf_do_socio">
+              <div v-if="socio.cnpj_cpf_do_socio">
+                <strong>Cpf/Cnpj do Sócio: </strong>
+                <span>{{ socio.cnpj_cpf_do_socio }}</span>
+              </div>
+
+              <div v-if="socio.nome_socio">
+                <strong>Nome do Sócio: </strong>
+                <span>{{ socio.nome_socio }}</span>
+              </div>
+
+              <div v-if="socio.qualificacao_socio">
+                <strong>Qualificação: </strong>
+                <span>{{ socio.qualificacao_socio }}</span>
+              </div>
+
+              <div v-if="socio.faixa_etaria">
+                <strong>Faixa Etária: </strong>
+                <span>{{ socio.faixa_etaria }}</span>
+              </div>
+
+              <div v-if="socio.data_entrada_sociedade">
+                <strong>Data entrada na sociedade: </strong>
+                <span>{{ socio.data_entrada_sociedade }}</span>
+              </div>
+
+              <div v-if="socio.cpf_representante_legal">
+                <strong>Cpf Representante Legal: </strong>
+                <span>{{ socio.cpf_representante_legal }}</span>
+              </div>
+
+              <div v-if="socio.nome_representante_legal">
+                <strong>Nome Representante: </strong>
+                <span>{{ socio.nome_representante_legal }}</span>
+              </div>
+          </b-card-text>
+        </b-card>
+
+        <!-- Cnae Secundários -->
+        <b-card
+          title="Cnae Secundários"
+          img-top
+          class="cardPersonalized shadow p-3 mb-5 bg-white rounded"
+          v-if="this.company.cnaes_secundarios"
+        >
+          <b-card-text v-for="cnae in this.company.cnaes_secundarios"
+              :key="cnae.codigo">
+              <div>
+                <strong>Código: </strong>
+                <span>{{ cnae.codigo }}</span>
+              </div>
+
+              <div>
+                <strong>Descrição: </strong>
+                <span>{{ cnae.descricao }}</span>
+              </div>
           </b-card-text>
         </b-card>
       </b-row>
@@ -134,8 +271,7 @@ export default {
         .then((response) => {
           if (response.status == 204) this.$toast.info("Cnpj não encontrado!");
 
-          this.company = response.data.Empresa;
-          console.log("EMPRESA", this.company);
+          this.company = response.data.Empresa;          
         })
         .catch((error) => {
           if (error.response === undefined) {
@@ -168,6 +304,8 @@ strong {
   -moz-box-shadow: 0px 0px 26px 1px rgba(117, 117, 117, 0.41);
   box-shadow: 0px 0px 26px 1px rgba(117, 117, 117, 0.41);
   border-radius: 8px;
+  padding: 10px;
+  margin: 10px;
 }
 
 .cardPersonalized {
