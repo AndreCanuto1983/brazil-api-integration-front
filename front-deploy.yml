@@ -4,7 +4,7 @@ kind: Deployment
 metadata:
   name: pos-puc-tcc-front
 spec:
-  replicas: 2
+  replicas: 1
   template:
     metadata:
       labels:
@@ -15,9 +15,6 @@ spec:
         image: andrecanuto/pos.puc.tcc.front:latest
         ports:
         - containerPort: 80
-        env:
-        - name: ASPNETCORE_URLS
-          value: http://*:8080
   selector:
     matchLabels:
         app: pos.puc.tcc.front        
