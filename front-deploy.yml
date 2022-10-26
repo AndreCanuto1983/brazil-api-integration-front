@@ -5,16 +5,16 @@ metadata:
   name: pos-puc-tcc-front
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+        app: pos.puc.tcc.front 
   template:
     metadata:
       labels:
         app: pos.puc.tcc.front
     spec:
       containers:
-      - name: pos-puc-tcc-front
+      - name: app-front
         image: andrecanuto/pos.puc.tcc.front:latest
         ports:
         - containerPort: 80
-  selector:
-    matchLabels:
-        app: pos.puc.tcc.front        
