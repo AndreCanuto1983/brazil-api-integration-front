@@ -6,6 +6,7 @@ import axios from 'axios';
 const http = axios.create({
   baseURL: window.location.host.includes('localhost') ? 'http://localhost:49168' : 'pospucback.ddns.net:5000',
   headers: {
+    'Access-Control-Allow-Origin': 'pospucback.ddns.net:5000',
     'Accept': '*/*',     
     'Content-Type': 'application/json'
     //'Authorization': authorization.auth() !== null ? `Bearer ${authorization.auth()}` : ''
