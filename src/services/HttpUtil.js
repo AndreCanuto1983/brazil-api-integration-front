@@ -4,7 +4,7 @@ import axios from 'axios';
 //const authorization = new Authorization();
 
 const http = axios.create({
-  baseURL: window.location.host.includes('localhost') ? 'http://localhost:49168' : 'pospucback.ddns.net',
+  baseURL: window.location.host.includes('localhost') ? 'http://localhost:49168' : 'pospucback.ddns.net:5000',
   headers: {
     'Accept': '*/*',     
     'Content-Type': 'application/json'
