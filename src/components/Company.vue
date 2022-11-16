@@ -282,16 +282,11 @@ export default {
           this.company = response.data.Empresa;
         })
         .catch((error) => {
-          if (error.response === undefined) {
-            this.$toast.info(
+          this.$toast.info(
               "O servidor encontra-se indisponível. Por favor tente mais tarde"
             );
-          } else {
-            this.$toast.error(
-              "Estamos com problemas no servidor, por favor, tente mais tarde"
-            );
-            console.log(error);
-          }
+
+            console.log(error);         
         })
         .finally(() => {
           this.isLoading = false;

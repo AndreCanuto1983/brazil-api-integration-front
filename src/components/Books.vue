@@ -163,16 +163,11 @@ export default {
           this.bookData = response.data;
         })
         .catch((error) => {
-          if (error.response === undefined) {
-            this.$toast.info(
+          this.$toast.info(
               "O servidor encontra-se indisponível. Por favor tente mais tarde"
             );
-          } else {
-            this.$toast.error(
-              "Estamos com problemas no servidor, por favor, tente mais tarde"
-            );
+
             console.log(error);
-          }
         })
         .finally(() => {
           this.isLoading = false;
