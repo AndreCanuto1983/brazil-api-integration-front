@@ -275,7 +275,7 @@ export default {
       this.isLoading = true;
 
       http
-        .get(`/api/v1/Company/${this.cnpj}`)
+        .get(`/api/Company/v2/${this.cnpj}`)
         .then((response) => {
           if (response.status == 204) this.$toast.info("Cnpj não encontrado!");
 

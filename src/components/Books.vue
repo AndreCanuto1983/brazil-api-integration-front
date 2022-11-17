@@ -42,14 +42,14 @@
       <b-row
         align-h="center"
         style="margin-top: 10px"
-        v-if="this.bookData.book != undefined"
+        v-if="this.bookData.title"
       >
         <b-card img-top class="cardPersonalized">
           <div style="padding: 10px">
             <b-img
               center
-              v-if="this.bookData.book.cover_url"
-              :src="this.bookData.book.cover_url"
+              v-if="this.bookData.imageLinks"
+              :src="this.bookData.imageLinks.thumbnail"
               style="max-width: 200px; margin-top: 10px"
               class="my-shadow"
             >
@@ -66,55 +66,77 @@
           </div>
 
           <div>
-            <h1 style="text-align: center">{{ this.bookData.book.title }}</h1>
+            <h2 style="text-align: center">{{ this.bookData.title }}</h2>
           </div>
 
           <b-card-text>
-            <div v-if="this.bookData.book.subTitle">
-              <strong>Subtítulo: </strong>
-              <span>{{ this.bookData.book.subTitle }}</span>
-            </div>
-
-            <div v-if="this.bookData.book.authors[0]">
+            <div v-if="this.bookData.authors">
               <strong>Autor(es): </strong>
-              <span v-for="author in this.bookData.book.authors" :key="author">
+              <span
+                v-for="author in this.bookData.authors"
+                :key="author"
+                class="authorName"
+              >
                 {{ author }}
               </span>
             </div>
 
-            <div v-if="this.bookData.book.publisher">
+            <div v-if="this.bookData.publisher">
               <strong>Publicação: </strong>
-              <span> {{ this.bookData.book.publisher }} </span>
+              <span> {{ this.bookData.publisher }} </span>
             </div>
 
-            <div v-if="this.bookData.book.location">
-              <strong>Localização: </strong>
-              <span> {{ this.bookData.book.location }} </span>
+            <div v-if="this.bookData.language">
+              <strong>Linguagem: </strong>
+              <span> {{ this.bookData.language }} </span>
             </div>
 
-            <div v-if="this.bookData.book.year">
-              <strong>Ano: </strong>
-              <span> {{ this.bookData.book.year }} </span>
+            <div v-if="this.bookData.publishedDate">
+              <strong>Data da Publicação: </strong>
+              <span> {{ this.bookData.publishedDate }} </span>
             </div>
 
-            <div v-if="this.bookData.book.page_count">
+            <div v-if="this.bookData.pageCount">
               <strong>Número de Páginas: </strong>
-              <span> {{ this.bookData.book.page_count }} </span>
+              <span> {{ this.bookData.pageCount }} </span>
             </div>
 
-            <div v-if="this.bookData.book.synopsis" style="text-align: justify">
+            <div v-if="this.bookData.description" style="text-align: justify">
               <strong>Sinopse: </strong>
-              <span> {{ this.bookData.book.synopsis }} </span>
+              <span> {{ this.bookData.description }} </span>
             </div>
 
-            <div v-if="this.bookData.book.subjects[0]">
+            <div v-if="this.bookData.categories">
               <strong>Palavras-chave: </strong>
-              <span v-for="tag in this.bookData.book.subjects" :key="tag">{{
+              <span v-for="tag in this.bookData.categories" :key="tag">{{
                 tag
               }}</span>
             </div>
           </b-card-text>
         </b-card>
+
+        <div v-if="this.related" class="relatedCardPersonalized">
+          <h3 style="text-align: center">
+            <strong>Livros Relacionados</strong>
+          </h3>
+
+          <b-row align-h="center">
+            <b-card
+              img-top
+              v-for="book in this.related"
+              :key="book.id"
+              class="relatedCard"
+            >
+              <b-img
+                v-if="book.volumeInfo.imageLinks"
+                center
+                :src="book.volumeInfo.imageLinks.thumbnail"
+                class="my-shadow"
+              >
+              </b-img>
+            </b-card>
+          </b-row>
+        </div>
       </b-row>
       <br /><br />
     </b-container>
@@ -135,6 +157,7 @@ export default {
     isLoading: false,
     isbn: "",
     bookData: {},
+    related: [],
   }),
   computed: {
     isbnState() {
@@ -156,18 +179,38 @@ export default {
       this.isLoading = true;
 
       http
-        .get(`/api/v1/Books/${this.isbn}`)
+        .get(`/api/Books/v2/${this.isbn}`)
         .then((response) => {
           if (response.status == 204) this.$toast.info("Livro não encontrado!");
 
-          this.bookData = response.data;
+          this.bookData = response?.data?.items[0]?.volumeInfo;
+
+          switch (this.bookData.language) {
+            case "pt":
+              this.bookData.language = "Português";
+              break;
+            case "pt-BR":
+              this.bookData.language = "Português";
+              break;
+            case "en":
+              this.bookData.language = "Inglês";
+              break;
+          }
+
+          this.bookData.publishedDate = this.bookData?.publishedDate
+            ?.split("-")
+            .reverse()
+            .join("/");
+
+          this.related = response?.data?.items;
+          this.related.shift();
         })
         .catch((error) => {
           this.$toast.info(
-              "O servidor encontra-se indisponível. Por favor tente mais tarde"
-            );
+            "O servidor encontra-se indisponível. Por favor tente mais tarde"
+          );
 
-            console.log(error);
+          console.log(error);
         })
         .finally(() => {
           this.isLoading = false;
@@ -199,5 +242,23 @@ strong {
   .cardPersonalized {
     max-width: 90%;
   }
+}
+
+.relatedCard {
+  max-width: 160px;
+  margin-top: 10px;
+  border: 0;
+}
+
+.relatedCardPersonalized {
+  max-width: 70%;
+  border: 0;
+  margin-top: 20px;
+}
+
+.authorName {
+  border: 0.1px solid lightgray;
+  border-radius: 2px;
+  margin-left: 3px;
 }
 </style>
