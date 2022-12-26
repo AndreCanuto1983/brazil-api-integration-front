@@ -134,6 +134,10 @@
                 class="my-shadow"
               >
               </b-img>
+              <span
+                >ISBN:
+                {{ book.volumeInfo.industryIdentifiers[0].identifier }}</span
+              >
             </b-card>
           </b-row>
         </div>
@@ -181,29 +185,49 @@ export default {
       http
         .get(`/api/Books/v2/${this.isbn}`)
         .then((response) => {
-          if (response.status == 204) this.$toast.info("Livro não encontrado!");
-
-          this.bookData = response?.data?.items[0]?.volumeInfo;
-
-          switch (this.bookData.language) {
-            case "pt":
-              this.bookData.language = "Português";
-              break;
-            case "pt-BR":
-              this.bookData.language = "Português";
-              break;
-            case "en":
-              this.bookData.language = "Inglês";
-              break;
+          if (response.status == 204) {
+            this.$toast.info("Livro não encontrado!");
+            return;
           }
 
-          this.bookData.publishedDate = this.bookData?.publishedDate
-            ?.split("-")
-            .reverse()
-            .join("/");
+          console.log("RESPONSE", response);
 
-          this.related = response?.data?.items;
-          this.related.shift();
+          if (
+            response?.data?.items?.volumeInfo?.industryIdentifiers[0]
+              .identifier == this.isbn ||
+            response?.data?.items?.volumeInfo?.industryIdentifiers[1]
+              .identifier == this.isbn
+          ) {
+            this.bookData =
+              response?.data?.items[0]?.volumeInfo?.industryIdentifiers[0]?.identifier;
+
+            switch (this.bookData?.language) {
+              case "pt":
+                this.bookData.language = "Português";
+                break;
+              case "pt-BR":
+                this.bookData.language = "Português";
+                break;
+              case "en":
+                this.bookData.language = "Inglês";
+                break;
+            }
+
+            this.bookData.publishedDate = this.bookData?.publishedDate
+              ?.split("-")
+              .reverse()
+              .join("/");
+
+            console.log("bookData", this.bookData);
+
+            this.related = response?.data?.items;
+            this.related.shift();
+            console.log("RELATED", this.related);
+          } 
+          else {
+            this.related = response?.data?.items;
+            console.log("RELATED", this.related);            
+          }                  
         })
         .catch((error) => {
           this.$toast.info(
