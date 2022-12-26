@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: pos-puc-tcc-front
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
         app: pos.puc.tcc.front 
