@@ -21,24 +21,24 @@ npm run build
 ```
 
 
-# Generate application image locally
+## Generate application image locally
     docker build -f Dockerfile -t pos.puc.tcc.front .
 
-# Run application container locally
+## Run application container locally
     docker container run -d -p 3000:8080 --name pos.puc.tcc.front pos.puc.tcc.front
 
-# Push front-end image to docker hub
+## Push front-end image to docker hub
 	docker login
 	docker tag pos.puc.tcc.front your_account/pos.puc.tcc.front
 	docker push your_account/pos.puc.tcc.front
 
-# Deploy in kubernetes
+## Deploy in kubernetes
 	kubectl create -f front-deploy.yaml
 	
-# Adjust auto scalling
+## Adjust auto scalling
 	kubectl autoscale deployment pos-puc-tcc-front --min=1 --max=10 --cpu-percent=50
 
-# General commands kubernetes
+## General commands kubernetes
 	kubectl get all
 	kubectl get deployments
 	kubectl get svc
@@ -54,7 +54,7 @@ npm run build
 
 # DATA FOR TEST
 
-# Books: 
+## Books: 
 - 9788545702870 Akira vol. 1
 - 9788535919714 Steve Jobs
 - 9788562936524 A guerra dos tronos
@@ -70,7 +70,7 @@ npm run build
 - 9788545202219 O poder da autorresponsabilidade 
 - 9788562409882 A garota do lago
 
-# Companies:
+## Companies:
 - 17178195002968 puc minas
 - 06990590000123 google
 - 04712500000107 microsoft
