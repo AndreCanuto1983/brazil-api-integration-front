@@ -52,7 +52,7 @@ npm run build
 	kubectl describe deploy pos-puc-tcc-front
 	kubectl describe svc pos-puc-tcc-front
 
-# DATA FOR TEST
+# Data For Test
 
 ## Books: 
 - 9788545702870 Akira vol. 1
