@@ -55,25 +55,25 @@ npm run build
 # DATA FOR TEST
 
 # Books: 
-9788545702870 - Akira vol. 1
-9788535919714 - Steve Jobs
-9788562936524 - A guerra dos tronos
-9788599296363 - A cabana
-9788525432186 - Sapiens
-9788539004119 - O poder do hábito
-9788551002490 - A Sutil Arte de Ligar o F*da-se
-9786584661097 - 365 Dias de Inteligência
-9786559223503 - Autismo
-9788576849940 - O milagre da manhã 
-9788502218482 - Ansiedade
-9788543104508 - Propósito
-9788545202219 - O poder da autorresponsabilidade 
-9788562409882 - A garota do lago
+9788545702870 Akira vol. 1
+9788535919714 Steve Jobs
+9788562936524 A guerra dos tronos
+9788599296363 A cabana
+9788525432186 Sapiens
+9788539004119 O poder do hábito
+9788551002490 A Sutil Arte de Ligar o F*da-se
+9786584661097 365 Dias de Inteligência
+9786559223503 Autismo
+9788576849940 O milagre da manhã 
+9788502218482 Ansiedade
+9788543104508 Propósito
+9788545202219 O poder da autorresponsabilidade 
+9788562409882 A garota do lago
 
 # Companies:
-17178195002968 - puc minas
-06990590000123 - google
-04712500000107 - microsoft
-13590585000199 - netflix
-57286247000133 - intel
-15436940000103 - amazon
+17178195002968 puc minas
+06990590000123 google
+04712500000107 microsoft
+13590585000199 netflix
+57286247000133 intel
+15436940000103 amazon
