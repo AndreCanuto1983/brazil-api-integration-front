@@ -32,7 +32,7 @@ npm run build
 	docker tag pos.puc.tcc.front your_account/pos.puc.tcc.front
 	docker push your_account/pos.puc.tcc.front
 
-# Deploy
+# Deploy in kubernetes
 	kubectl create -f front-deploy.yaml
 	
 # Adjust auto scalling
