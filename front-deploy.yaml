@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: pos-puc-tcc-front
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
         app: pos.puc.tcc.front 
@@ -25,11 +25,9 @@ kind: Service
 metadata:
   name: pos-puc-tcc-front
 spec:
-  #type: NodePort
   type: LoadBalancer
   selector:
      app: pos-puc-tcc-front   
   ports:    
-    - port: 8080
-      targetPort: 8080
-      #nodePort: 31600
+    - port: 4001
+      targetPort: 4001
