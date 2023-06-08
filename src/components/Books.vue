@@ -162,12 +162,10 @@ export default {
 
           this.bookData = response.data;
         })
-        .catch((error) => {
+        .catch(() => {
           this.$toast.info(
-              "O servidor encontra-se indisponível. Por favor tente mais tarde"
-            );
-
-            console.log(error);
+            "O servidor encontra-se indisponível. Por favor tente mais tarde"
+          );          
         })
         .finally(() => {
           this.isLoading = false;
